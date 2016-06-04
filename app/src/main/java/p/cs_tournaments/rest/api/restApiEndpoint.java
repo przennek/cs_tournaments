@@ -6,9 +6,6 @@ import p.cs_tournaments.R;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
-/**
- * Created by kajetan on 04.06.16.
- */
 public class restApiEndpoint {
 
         private static restApi apiInstance;
