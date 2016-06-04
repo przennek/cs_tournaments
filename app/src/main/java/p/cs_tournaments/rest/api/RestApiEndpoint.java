@@ -6,23 +6,23 @@ import p.cs_tournaments.R;
 import retrofit.GsonConverterFactory;
 import retrofit.Retrofit;
 
-public class restApiEndpoint {
+public class RestApiEndpoint {
 
-        private static restApi apiInstance;
+        private static RestApi apiInstance;
 
-        private restApiEndpoint() {
+        private RestApiEndpoint() {
 
         }
 
-        public synchronized static restApi getApiInstance(Context context) {
+        public synchronized static RestApi getApiInstance(Context context) {
             if (apiInstance == null) {
                 final String baseUrl = context.getApplicationContext()
-                        .getResources().getString(R.string.fmf_server_url);
+                        .getResources().getString(R.string.server_url);
 
                 final Retrofit builder = new Retrofit.Builder().baseUrl(baseUrl)
                         .addConverterFactory(GsonConverterFactory.create()).build();
 
-                apiInstance = builder.create(restApi.class);
+                apiInstance = builder.create(RestApi.class);
             }
 
             return apiInstance;
