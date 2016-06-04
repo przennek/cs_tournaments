@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CS_tournaments</string>
+    <string name="recent_tournaments">Recent tournaments</string>
 </resources>
