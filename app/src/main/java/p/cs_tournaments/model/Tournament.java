@@ -10,5 +10,5 @@ import lombok.Data;
 public class Tournament {
     private final long id;
     private final String name;
-    private final DateTime dateTime;
+//    private final DateTime dateTime;
 }

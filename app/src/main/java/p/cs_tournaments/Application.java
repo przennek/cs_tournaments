@@ -3,6 +3,7 @@ package p.cs_tournaments;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -21,12 +22,12 @@ public class Application extends AppCompatActivity {
         setContentView(R.layout.activity_application);
 
         ListView listView = (ListView) findViewById(R.id.listView);
-        tAdapter = new ArrayAdapter<Tournament>(this, R.layout.activity_application);
+        tAdapter = new ArrayAdapter<>(this, R.layout.activity_application);
 
         CallRestApi call = new CallRestApi();
         call.listAllCall(getApplicationContext());
                 
-        tournamentList = call.getTournaments().getTournamentsList();
+        tournamentList = call.getTournaments();
         tAdapter.addAll(tournamentList);
 
         listView.setAdapter(tAdapter);
