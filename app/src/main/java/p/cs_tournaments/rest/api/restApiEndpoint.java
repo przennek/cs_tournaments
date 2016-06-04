@@ -17,7 +17,7 @@ public class restApiEndpoint {
         public synchronized static restApi getApiInstance(Context context) {
             if (apiInstance == null) {
                 final String baseUrl = context.getApplicationContext()
-                        .getResources().getString(R.string.fmf_server_url);
+                        .getResources().getString(R.string.);
 
                 final Retrofit builder = new Retrofit.Builder().baseUrl(baseUrl)
                         .addConverterFactory(GsonConverterFactory.create()).build();
