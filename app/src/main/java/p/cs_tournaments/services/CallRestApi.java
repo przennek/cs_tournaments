@@ -28,8 +28,7 @@ public class CallRestApi {
         RestApi api = RestApiEndpoint.getApiInstance(context);
         Call<ListOfTournaments> listOfTournamentsCall = api.listAllTournaments();
 
-
-        Callback callback = new Callback<ListOfTournaments>() {
+        listOfTournamentsCall.enqueue(new Callback<ListOfTournaments>() {
             @Override
             public void onResponse(Response<ListOfTournaments> response, Retrofit retrofit) {
                 if(response.isSuccess()) {
@@ -44,8 +43,7 @@ public class CallRestApi {
                 Throwables.propagate(t);
                 //TODO read from local db
             }
-        };
+        });
 
-        listOfTournamentsCall.enqueue(callback);
     }
 }
