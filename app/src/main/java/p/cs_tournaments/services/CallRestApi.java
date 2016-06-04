@@ -5,9 +5,12 @@ import android.view.ViewDebug;
 
 import com.google.common.base.Throwables;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import lombok.Getter;
+import lombok.Setter;
+import p.cs_tournaments.Application;
 import p.cs_tournaments.model.ListOfTournaments;
 import p.cs_tournaments.model.Tournament;
 import p.cs_tournaments.rest.api.RestApi;
@@ -19,7 +22,8 @@ import retrofit.Retrofit;
 
 public class CallRestApi {
     @Getter
-    private List<Tournament> tournaments;
+    private List<Tournament> tournaments = new ArrayList<>();
+
     public CallRestApi(){
 
     }
@@ -31,8 +35,8 @@ public class CallRestApi {
         listOfTournamentsCall.enqueue(new Callback<ListOfTournaments>() {
             @Override
             public void onResponse(Response<ListOfTournaments> response, Retrofit retrofit) {
-                if(response.isSuccess()) {
-                    tournaments = response.body().getTournamentsList();
+                if (response.isSuccess()) {
+                    tournaments.addAll(response.body().getTournamentsList());
                 } else {
                     throw new RuntimeException("Request failed!");
                 }
@@ -44,6 +48,5 @@ public class CallRestApi {
                 //TODO read from local db
             }
         });
-
     }
 }
