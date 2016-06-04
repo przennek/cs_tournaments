@@ -1,10 +1,13 @@
 package p.cs_tournaments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
@@ -28,6 +31,15 @@ public class Application extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         call.listAllCall(getApplicationContext());
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Tournament tournament = tAdapter.getItem(position);
+                Intent intent = new Intent(Application.this, Tournaments.class);
+                intent.putExtra("tournament", tournament.toString());
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
