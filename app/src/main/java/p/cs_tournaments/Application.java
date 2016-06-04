@@ -36,7 +36,7 @@ public class Application extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Tournament tournament = tAdapter.getItem(position);
                 Intent intent = new Intent(Application.this, Tournaments.class);
-                intent.putExtra("tournament", tournament.toString());
+                intent.putExtra("id", tournament.getId());
                 startActivity(intent);
             }
         });
