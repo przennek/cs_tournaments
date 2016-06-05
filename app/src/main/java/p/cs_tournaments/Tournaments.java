@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.common.base.Throwables;
+
 import java.io.IOException;
 import java.util.List;
 import java.util.concurrent.Callable;
@@ -37,16 +39,14 @@ public class Tournaments extends AppCompatActivity {
         });
 
 
-        while(!matches.isDone()) {
-            // wait for response
-        }
+        while(!matches.isDone()); // wait for response
 
+        List<Match> matchesList;
         try {
-            Toast.makeText(this, matches.get().toString(), Toast.LENGTH_LONG).show();
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
-            e.printStackTrace();
+            matchesList = matches.get();
+
+        } catch (Exception e) {
+            Throwables.propagate(e);
         }
     }
 }
