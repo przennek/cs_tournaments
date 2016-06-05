@@ -1,5 +1,6 @@
 package p.cs_tournaments.model;
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -12,7 +13,7 @@ import lombok.Value;
  */
 @Value
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class ListOfMatches {
+public class ListOfMatches implements Serializable{
     @Getter @Setter
     private List<Match> matchList;
 }

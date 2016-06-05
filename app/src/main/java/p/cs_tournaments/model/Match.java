@@ -4,6 +4,7 @@ package p.cs_tournaments.model;
  * Created by p on 05.06.16.
  */
 
+import java.io.Serializable;
 import java.util.List;
 
 import lombok.AllArgsConstructor;
@@ -13,7 +14,7 @@ import lombok.Setter;
 
 @Data
 @AllArgsConstructor(suppressConstructorProperties = true)
-public class Match {
+public class Match implements Serializable{
     @Getter
     private final long id;
     @Getter

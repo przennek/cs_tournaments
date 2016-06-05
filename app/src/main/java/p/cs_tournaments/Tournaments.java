@@ -3,6 +3,7 @@ package p.cs_tournaments;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -10,6 +11,7 @@ import android.widget.Toast;
 import com.google.common.base.Throwables;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -54,7 +56,7 @@ public class Tournaments extends AppCompatActivity {
         TextView comp3 = (TextView) findViewById(R.id.Comp3);
         TextView comp4 = (TextView) findViewById(R.id.Comp4);
 
-        List<Match> matchesList;
+        final List<Match> matchesList;
         try {
             matchesList = matches.get();
 
@@ -82,9 +84,57 @@ public class Tournaments extends AppCompatActivity {
             comp3.setText(matchesList.get(2).getTeam1());
             comp4.setText(matchesList.get(2).getTeam2());
 
+            comp1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clicker(1, matchesList);
+                }
+            });
+
+            comp2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clicker(1, matchesList);
+                }
+            });
+
+            comp3.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clicker(2, matchesList);
+                }
+            });
+
+            comp4.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clicker(2, matchesList);
+                }
+            });
+
+            final1.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clicker(0, matchesList);
+                }
+            });
+
+            final2.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    clicker(0, matchesList);
+                }
+            });
 
         } catch (Exception e) {
             Throwables.propagate(e);
         }
+    }
+
+    private void clicker(long id, List<Match> matchesList){
+        Intent intent = new Intent(getApplicationContext(), MatchInfo.class);
+        intent.putExtra("matchId", String.valueOf(id));
+        intent.putExtra("matchList", (Serializable) matchesList);
+        startActivity(intent);
     }
 }
