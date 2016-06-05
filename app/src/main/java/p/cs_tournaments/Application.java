@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import p.cs_tournaments.model.Tournament;
 import p.cs_tournaments.services.CallRestApi;
@@ -22,15 +23,19 @@ public class Application extends AppCompatActivity {
         setContentView(R.layout.activity_application);
 
         listView = (ListView) findViewById(R.id.listView);
-        call.listAllCall(getApplicationContext());
+
+        call.listAllCall(this);
+        tAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                call.getTournaments());
+        listView.setAdapter(tAdapter);
+        tAdapter.notifyDataSetChanged();
+
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-        tAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                call.getTournaments());
-        listView.setAdapter(tAdapter);
+        tAdapter.notifyDataSetChanged();
 
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

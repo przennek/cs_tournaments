@@ -18,13 +18,12 @@ public class Tournaments extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_tournaments);
         intent = getIntent();
-
-        call.getMatchCall(getApplicationContext(), 1L);
     }
 
     @Override
     protected void onStart() {
         super.onStart();
+        call.getMatchCall(this, 1);
 //        Toast.makeText(this, intent.getExtras().get("id").toString(),Toast.LENGTH_LONG).show();
         Toast.makeText(this, call.getMatches().toString(),Toast.LENGTH_LONG).show();
     }

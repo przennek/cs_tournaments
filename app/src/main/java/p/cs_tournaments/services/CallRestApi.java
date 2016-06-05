@@ -55,10 +55,9 @@ public class CallRestApi {
         });
     }
 
-    public void getMatchCall(Context context, Long id){
+    public void getMatchCall(Context context, long id){
         RestApi api = RestApiEndpoint.getApiInstance(context);
-//        Call<ListOfMatches> listOfMatchesCall = api.getMatch(id);
-        Call<ListOfMatches> listOfMatchesCall = api.getMatch();
+        Call<ListOfMatches> listOfMatchesCall = api.getMatch(id);
 
         listOfMatchesCall.enqueue(new Callback<ListOfMatches>() {
             @Override
