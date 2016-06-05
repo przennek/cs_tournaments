@@ -5,6 +5,7 @@ import android.view.ViewDebug;
 
 import com.google.common.base.Throwables;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +25,7 @@ import retrofit.Retrofit;
 
 public class CallRestApi {
     @Getter
-    private List<Tournament> tournaments = new ArrayList<>();
+    volatile private List<Tournament> tournaments = new ArrayList<>();
 
     @Getter
     private List<Match> matches = new ArrayList<>();
@@ -33,26 +34,11 @@ public class CallRestApi {
 
     }
 
-    public void listAllCall(Context context){
+    public List<Tournament> listAllCall(Context context) throws IOException {
         RestApi api = RestApiEndpoint.getApiInstance(context);
         Call<ListOfTournaments> listOfTournamentsCall = api.listAllTournaments();
 
-        listOfTournamentsCall.enqueue(new Callback<ListOfTournaments>() {
-            @Override
-            public void onResponse(Response<ListOfTournaments> response, Retrofit retrofit) {
-                if (response.isSuccess()) {
-                    tournaments.addAll(response.body().getTournamentsList());
-                } else {
-                    throw new RuntimeException("Request failed!");
-                }
-            }
-
-            @Override
-            public void onFailure(Throwable t) {
-                Throwables.propagate(t);
-                //TODO read from local db
-            }
-        });
+        return listOfTournamentsCall.execute().body().getTournamentsList();
     }
 
     public void getMatchCall(Context context, long id){
