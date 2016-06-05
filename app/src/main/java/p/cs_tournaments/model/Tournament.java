@@ -9,4 +9,9 @@ import lombok.Data;
 public class Tournament {
     private final long id;
     private final String name;
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }
