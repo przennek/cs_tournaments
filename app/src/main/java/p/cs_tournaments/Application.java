@@ -63,10 +63,4 @@ public class Application extends AppCompatActivity {
         listView.setAdapter(tAdapter);
 
     }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-
-    }
 }

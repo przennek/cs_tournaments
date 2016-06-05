@@ -6,6 +6,15 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
+
+import p.cs_tournaments.model.Match;
 import p.cs_tournaments.model.Tournament;
 import p.cs_tournaments.services.CallRestApi;
 
@@ -19,13 +28,26 @@ public class Tournaments extends AppCompatActivity {
         setContentView(R.layout.activity_tournaments);
         intent = getIntent();
 
-        call.getMatchCall(getApplicationContext(), 1L);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-//        Toast.makeText(this, intent.getExtras().get("id").toString(),Toast.LENGTH_LONG).show();
-        Toast.makeText(this, call.getMatches().toString(),Toast.LENGTH_LONG).show();
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+        Future<List<Match>> matches = executor.submit(new Callable<List<Match>>() {
+            @Override
+            public List<Match> call() throws IOException {
+                return call.getMatchCall(getApplicationContext(), 1L);
+            }
+        });
+
+
+        while(!matches.isDone()) {
+            // wait for response
+        }
+
+        try {
+            Toast.makeText(this, matches.get().toString(), Toast.LENGTH_LONG).show();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
