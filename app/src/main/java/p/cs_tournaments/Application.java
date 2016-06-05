@@ -2,14 +2,12 @@ package p.cs_tournaments;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.ProgressBar;
-import android.widget.ThemedSpinnerAdapter;
 
 import java.io.IOException;
 import java.util.List;
@@ -24,16 +22,14 @@ import p.cs_tournaments.services.CallRestApi;
 
 public class Application extends AppCompatActivity {
     private final CallRestApi call = new CallRestApi();
-    volatile private ArrayAdapter<Tournament> tAdapter;
+    private ArrayAdapter<Tournament> tAdapter;
+    private volatile Future <List<Tournament>> tournaments;
     private ListView listView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_application);
-
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.GONE);
 
         listView = (ListView) findViewById(R.id.listView);
 
@@ -47,16 +43,23 @@ public class Application extends AppCompatActivity {
         });
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future <List<Tournament>> tournaments = executor.submit(new Callable<List<Tournament>>() {
+        tournaments = executor.submit(new Callable<List<Tournament>>() {
             @Override
             public List<Tournament> call() throws IOException {
                 return call.listAllCall(getApplicationContext());
             }
         });
+    }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
 
+        if(progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
         while(!tournaments.isDone());
-        progressBar.setVisibility(View.INVISIBLE);
 
         try {
             tAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tournaments.get());
@@ -66,5 +69,8 @@ public class Application extends AppCompatActivity {
 
         listView.setAdapter(tAdapter);
 
+        if(progressBar != null) {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
     }
 }
