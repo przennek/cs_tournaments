@@ -32,6 +32,9 @@ public class Application extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_application);
 
+        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
+        progressBar.setVisibility(View.GONE);
+
         listView = (ListView) findViewById(R.id.listView);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -51,8 +54,7 @@ public class Application extends AppCompatActivity {
             }
         });
 
-        ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+
         while(!tournaments.isDone());
         progressBar.setVisibility(View.INVISIBLE);
 
