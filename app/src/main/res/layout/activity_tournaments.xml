@@ -5,6 +5,7 @@
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin"
     android:paddingBottom="@dimen/activity_vertical_margin"
+    android:background="@drawable/template"
     tools:context="p.cs_tournaments.Tournaments">
 
     <LinearLayout
@@ -26,7 +27,7 @@
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
-                android:id="@+id/textView"
+                android:id="@+id/Winner"
                 android:layout_weight="0.48"
                 android:textSize="15dp"
                 android:gravity="center" />
@@ -44,7 +45,7 @@
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
-                android:id="@+id/textView2"
+                android:id="@+id/Final1"
                 android:layout_weight="0.47"
                 android:textSize="15dp"
                 android:gravity="center" />
@@ -54,10 +55,11 @@
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
-                android:id="@+id/textView7"
+                android:id="@+id/Final2"
                 android:layout_weight="0.33"
                 android:textSize="15dp"
                 android:gravity="center" />
+
         </TableRow>
 
         <TableRow
@@ -71,7 +73,16 @@
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
-                android:id="@+id/textView3"
+                android:id="@+id/Comp1"
+                android:textSize="15dp"
+                android:gravity="center" />
+
+            <TextView
+                android:layout_width="94dp"
+                android:layout_height="match_parent"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:text="Large Text"
+                android:id="@+id/Comp2"
                 android:textSize="15dp"
                 android:gravity="center" />
 
@@ -80,28 +91,20 @@
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
-                android:id="@+id/textView4"
+                android:id="@+id/Comp3"
                 android:textSize="15dp"
                 android:gravity="center" />
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:text="Large Text"
-                android:id="@+id/textView5"
-                android:textSize="15dp"
-                android:gravity="center" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:text="Large Text"
-                android:id="@+id/textView6"
+                android:id="@+id/Comp4"
                 android:textSize="15dp"
                 android:gravity="center" />
         </TableRow>
+
     </LinearLayout>
 
 </RelativeLayout>
