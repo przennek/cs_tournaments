@@ -28,7 +28,6 @@ public class Tournaments extends AppCompatActivity {
         setContentView(R.layout.activity_tournaments);
         intent = getIntent();
 
-
         ExecutorService executor = Executors.newSingleThreadExecutor();
         Future<List<Match>> matches = executor.submit(new Callable<List<Match>>() {
             @Override
