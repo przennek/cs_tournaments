@@ -24,7 +24,8 @@ import p.cs_tournaments.services.CallRestApi;
 
 public class Application extends AppCompatActivity {
     private final CallRestApi call = new CallRestApi();
-    volatile private ArrayAdapter<Tournament> tAdapter;
+    private ArrayAdapter<Tournament> tAdapter;
+    private volatile Future <List<Tournament>> tournaments;
     private ListView listView;
 
     @Override
@@ -44,17 +45,23 @@ public class Application extends AppCompatActivity {
         });
 
         ExecutorService executor = Executors.newSingleThreadExecutor();
-        Future <List<Tournament>> tournaments = executor.submit(new Callable<List<Tournament>>() {
+        tournaments = executor.submit(new Callable<List<Tournament>>() {
             @Override
             public List<Tournament> call() throws IOException {
                 return call.listAllCall(getApplicationContext());
             }
         });
+    }
 
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
         ProgressBar progressBar = (ProgressBar) findViewById(R.id.progressBar);
-        progressBar.setVisibility(View.VISIBLE);
+
+        if(progressBar != null) {
+            progressBar.setVisibility(View.VISIBLE);
+        }
         while(!tournaments.isDone());
-        progressBar.setVisibility(View.INVISIBLE);
 
         try {
             tAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, tournaments.get());
@@ -64,5 +71,8 @@ public class Application extends AppCompatActivity {
 
         listView.setAdapter(tAdapter);
 
+        if(progressBar != null) {
+            progressBar.setVisibility(View.INVISIBLE);
+        }
     }
 }

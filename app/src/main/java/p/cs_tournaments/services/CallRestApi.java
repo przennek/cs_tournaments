@@ -23,9 +23,9 @@ public class CallRestApi {
         return listOfTournamentsCall.execute().body().getTournamentsList();
     }
 
-    public List<Match> getMatchCall(Context context, Long id) throws IOException {
+    public List<Match> getMatchCall(Context context, long id) throws IOException {
         RestApi api = RestApiEndpoint.getApiInstance(context);
-        Call<ListOfMatches> listOfMatchesCall = api.getMatch();
+        Call<ListOfMatches> listOfMatchesCall = api.getMatch(id);
         return listOfMatchesCall.execute().body().getMatchList();
     }
 }
