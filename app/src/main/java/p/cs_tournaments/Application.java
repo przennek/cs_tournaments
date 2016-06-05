@@ -23,6 +23,15 @@ public class Application extends AppCompatActivity {
 
         listView = (ListView) findViewById(R.id.listView);
         call.listAllCall(getApplicationContext());
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        tAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
+                call.getTournaments());
+        listView.setAdapter(tAdapter);
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -32,13 +41,5 @@ public class Application extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        tAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1,
-                call.getTournaments());
-        listView.setAdapter(tAdapter);
     }
 }
